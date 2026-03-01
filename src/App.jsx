@@ -1,68 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Sidebar from "./Components/SideBar";
+import Dashboard from "./Pages/Dashboard";
+import AboutThisApp from "./Pages/AboutThisApp";
+import CompletedTask from "./Pages/CompletedTask";
+import AllTask from "./Pages/AllTask";
 
 const App = () => {
-  const [heading, setHeading] = useState("");
-  const [task, setTask] = useState("");
-  const [todo, setTodo] = useState([]);
-
-  function SubHandler(e) {
-    e.preventDefault();
-
-    if (!heading.trim() || !task.trim()) return;
-
-    setTodo([...todo, { heading, task }]);
-    setHeading("");
-    setTask("");
-  }
-
   return (
-    <div className="min-h-screen bg-black flex flex-col justify-center items-center p-4 gap-10">
-      <h1 className="text-2xl font-bold text-white">Project2</h1>
+    // md:flex-row for side-by-side desktop, flex-col for stacked mobile
+    <div className="h-screen w-full flex flex-col md:flex-row bg-[#171717] overflow-hidden">
+      {/* Sidebar - hidden/toggle handled inside Sidebar.js via md:translate-x-0 */}
+      <div className="w-0 md:w-24 shrink-0">
+        <Sidebar />
+      </div>
 
-      <div className="w-full max-w-xl bg-neutral-900 text-white rounded-2xl shadow-2xl p-8 space-y-6">
-        <h1 className="text-2xl font-bold text-center tracking-wide">
-          Todo List
-        </h1>
-
-        <form onSubmit={SubHandler} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Heading..."
-            value={heading}
-            onChange={(e) => setHeading(e.target.value)}
-            className="w-full p-3 bg-black border border-gray-700 rounded-lg focus:outline-none focus:border-white transition"
-          />
-
-          <textarea
-            placeholder="Write your task..."
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-            className="w-full p-3 bg-black border border-gray-700 rounded-lg focus:outline-none focus:border-white transition resize-none"
-            rows="3"
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
-          >
-            Add Task
-          </button>
-        </form>
-
-        <div className="space-y-4">
-          {todo.map((item, index) => (
-            <div
-              key={index}
-              className="bg-black border border-gray-700 p-4 rounded-lg"
-            >
-              <h3 className="font-semibold text-lg">{item.heading}</h3>
-              <p className="text-gray-300 mt-2 wrap-break-words">
-                {" "}
-                {item.task}
-              </p>
-            </div>
-          ))}
+      {/* Main content - perfectly centered on all screens */}
+      <div className="flex-1 flex items-center justify-center p-4 md:p-10 overflow-y-auto">
+        <div className="w-full h-full flex items-center justify-center">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/completed" element={<CompletedTask />} />
+            <Route path="/AboutApp" element={<AboutThisApp />} />
+            <Route path="/alltask" element={<AllTask />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
         </div>
       </div>
     </div>

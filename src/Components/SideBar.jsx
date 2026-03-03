@@ -9,10 +9,10 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* MOBILE TOGGLE BUTTON */}
+   
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-[60] md:hidden p-2 bg-[#1f1f1f] rounded-md border border-[#2a2a2a]"
+        className="fixed top-4 left-4 z-0 md:hidden p-2 bg-[#1f1f1f] rounded-md border border-[#2a2a2a]"
       >
         <svg
           xmlns="http://www.w3.org"
@@ -34,11 +34,11 @@ const Sidebar = () => {
         </svg>
       </button>
 
-      {/* SIDEBAR CONTAINER */}
+
       <div
         className={`fixed top-0 left-0 h-screen w-24 bg-[#0d0d0d] border-r border-[#1f1f1f] flex flex-col items-center py-8 gap-12 z-50 shadow-2xl transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
-        {/* LOGO: mt-16 on mobile prevents overlap with the button */}
+
         <Link
           to="/"
           onClick={() => setIsOpen(false)}
@@ -107,7 +107,7 @@ const Sidebar = () => {
         </Link>
       </div>
 
-      {/* OVERLAY */}
+   
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
